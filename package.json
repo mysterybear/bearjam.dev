@@ -12,6 +12,7 @@
     "@emotion/core": "10.0.17",
     "@emotion/styled": "10.0.17",
     "@statickit/react": "^2.0.1",
+    "beautiful-react-hooks": "^0.20.0",
     "emotion-tailwind-preflight": "^1.0.0",
     "emotion-theming": "^10.0.27",
     "framer-motion": "^1.8.3",
