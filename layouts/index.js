@@ -10,13 +10,16 @@ const backdropStyles = [
     h-full
     overflow-hidden
     bg-blue-300
+    z-30
+    flex
+    justify-center
   `
 ]
 
 export const BackdropLayout = page => {
   return (
     <div css={backdropStyles}>
-      <SvgBackdrop css={[tw`absolute w-full bottom-0`]} />
+      <SvgBackdrop css={[tw`absolute w-full bottom-0 z-20`]} />
       {page}
     </div>
   );

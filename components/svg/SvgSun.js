@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import tw from 'tailwind.macro';
+import { motion } from 'framer-motion';
+import React from "react";
 
 function SvgSun({ fill = "yellow", stroke = "gray", ...props }) {
   return (
-    <svg
+    <motion.svg
       viewBox="0 0 61.793 30.159"
       {...props}
     >
@@ -25,7 +25,7 @@ function SvgSun({ fill = "yellow", stroke = "gray", ...props }) {
         transform="translate(0, 0.5)"
         onClick={() => setState({ ...state, centerColor: nextColor(state.centerColor) })}
       />
-    </svg>
+    </motion.svg>
   );
 }
 
