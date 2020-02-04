@@ -7,9 +7,6 @@ import { useTheme } from 'emotion-theming';
 import Clouds from '../components/Clouds';
 
 const mainColumnStyles = tw`w-full h-full bg-transparent flex flex-col flex-no-wrap items-center justify-center overflow-hidden sm:flex-none sm:w-2/3 md:w-1/2`;
-const bearColumnStyles = tw`hidden sm:flex flex-auto h-full bg-yellow-500 justify-center items-center`;
-const moonColumnStyles = tw`hidden md:flex flex-auto h-full bg-orange-500 justify-around items-center flex-col`;
-const bearStyles = tw`h-40 md:h-48 lg:h-64`;
 
 const IndexPage = () => {
   const { colors } = useTheme();
