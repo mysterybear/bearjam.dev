@@ -1,6 +1,23 @@
+import SvgBackdrop from '../components/svg/SvgBackdrop';
+import tw from 'tailwind.macro';
 
 export const Identity = x => x;
 
-export const BearjamLayout = page => {
-  return (page);
+const backdropStyles = [
+  tw`
+    relative
+    w-full
+    h-full
+    overflow-hidden
+    bg-blue-300
+  `
+]
+
+export const BackdropLayout = page => {
+  return (
+    <div css={backdropStyles}>
+      <SvgBackdrop css={[tw`absolute w-full bottom-0`]} />
+      {page}
+    </div>
+  );
 };
