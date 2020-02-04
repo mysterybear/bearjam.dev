@@ -34,7 +34,8 @@ const cloudStyles = tw`
 const ran = x => Math.random() * x;
 const ranIn = (x1, x2) => ran(x2 - x1) + x1;
 const items = n => [...Array(n).keys()]
-const interesting = x => x % 2 != 0 && x % 7 != 0;
+// const interesting = x => x % 2 != 0 && x % 7 != 0;
+const interesting = x => x;
 
 const initialClouds = [
   { x: -180, y: 0 },
@@ -47,7 +48,7 @@ const IndexPage = () => {
   const { colors } = useTheme();
 
   const transition = {
-    duration: 1,
+    duration: 10,
     loop: Infinity,
     ease: "linear"
   }
@@ -74,24 +75,27 @@ const IndexPage = () => {
 
   return (
     <div css={mainColumnStyles}>
-      {items(40).filter(interesting).map(i => [
-        <SvgBabaCloud
-          key={`${i}a`}
-          css={cloudStyles}
-          variants={variants}
-          custom={i}
-          initial="default"
-          animate="rightOffScreen"
-        />,
-        <SvgBabaCloud
-          key={`${i}b`}
-          css={cloudStyles}
-          variants={variants}
-          custom={i}
-          initial="leftOffScreen"
-          animate="default"
-        />
-      ]).flat()}
+      {items(10).map(i => {
+        const r = ranIn(1,5);
+        return [
+          <SvgBabaCloud
+            key={`${i}a`}
+            css={cloudStyles}
+            variants={variants}
+            custom={i*r}
+            initial="default"
+            animate="rightOffScreen"
+          />,
+          <SvgBabaCloud
+            key={`${i}b`}
+            css={cloudStyles}
+            variants={variants}
+            custom={i*r}
+            initial="leftOffScreen"
+            animate="default"
+          />
+        ];
+      }).flat()}
       <SvgSun css={tw`h-24 xl:h-32 relative z-20`} fill={colors.yellow[400]} stroke={colors.gray[700]} />
       <SvgBannerPath css={tw`h-12 xl:h-20 my-8 xl:my-10 relative z-40`} fill={colors.blue[100]} stroke={colors.gray[700]} />
       <OptInForm css={tw`h-10 mx-2 xl:mb-32 relative z-40`} />
