@@ -50,14 +50,16 @@ const IndexPage = () => {
   const { colors } = useTheme();
   const controls = useAnimation();
 
+  const perRow = 40;
+
   const variants = {
     initial: i => ({
-      x: ((i % 10) * 200) - ((Math.floor(i/10) % 2) * 100) - ranIn(550,650),
-      y: Math.floor(i / 10) * ranIn(90,110)
+      x: ((i % perRow) * 200) - ((Math.floor(i/perRow) % 2) * 100) - ranIn(1050,1150),
+      y: Math.floor(i / perRow) * ranIn(90,110)
     }),
     dest: i => ({
-      x: ((i % 10) * 200) - ((Math.floor(i/10) % 2) * 100) + ranIn(550,650),
-      y: Math.floor(i / 10) * ranIn(90,110),
+      x: ((i % perRow) * 200) - ((Math.floor(i/perRow) % 2) * 100) + ranIn(550,650),
+      y: Math.floor(i / perRow) * ranIn(90,110),
       transition: {
         duration: 2,
         ease: "linear"
@@ -75,7 +77,7 @@ const IndexPage = () => {
 
   return (
     <div css={[mainColumnStyles]} >
-      {items(40).filter(interesting).map(i => <SvgBabaCloud
+      {items(160).filter(interesting).map(i => <SvgBabaCloud
         css={cloudStyles}
         variants={variants}
         initial="initial"
