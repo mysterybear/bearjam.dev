@@ -1,11 +1,12 @@
 import { useTheme } from 'emotion-theming';
-import React from 'react';
+import React, { useEffect } from 'react';
 import tw from 'tailwind.macro';
 import { SvgSun } from '../components';
 import OptInForm from '../components/OptInForm';
 import SvgBabaCloud from '../components/svg/SvgBabaCloud';
 import SvgBannerPath from '../components/svg/SvgBannerPath';
 import { BackdropLayout } from '../layouts';
+import { useAnimation } from 'framer-motion';
 
 const border = tw`border-2 border-red-500 border-solid`
 
@@ -29,8 +30,9 @@ const cloudStyles = tw`
 `;
 
 const ran = x => Math.random() * x;
-const ranIn = (x1, x2) => ran(x2-x1) + x1;
+const ranIn = (x1, x2) => ran(x2 - x1) + x1;
 const items = n => [...Array(n).keys()]
+const interesting = x => x % 2 != 0 && x % 7 != 0;
 
 const initialClouds = [
   // items(6).map(i => ({ y: i * (ranIn(60,100)), x: ranIn(-180, 180) }))
@@ -46,27 +48,40 @@ const initialClouds = [
 
 const IndexPage = () => {
   const { colors } = useTheme();
+  const controls = useAnimation();
 
   const variants = {
-    initial: ({ x, y }) => ({ x, y }),
-    to: ({ x, y, i }) => ({
-      x: x + 500,
-      y: y + ranIn(-50, 50),
+    initial: i => ({
+      x: ((i % 10) * 200) - ((Math.floor(i/10) % 2) * 100) - ranIn(550,650),
+      y: Math.floor(i / 10) * ranIn(90,110)
+    }),
+    dest: i => ({
+      x: ((i % 10) * 200) - ((Math.floor(i/10) % 2) * 100) + ranIn(550,650),
+      y: Math.floor(i / 10) * ranIn(90,110),
       transition: {
-        duration: 10
+        duration: 2,
+        ease: "linear"
       }
+    }),
+  }
+
+  useEffect(() => {
+    controls.start(variants.dest).then(() => {
+      controls.start(variants.initial, { duration: 0 }).then(() => {
+        controls.start(variants.dest, { loop: Infinity, duration: 2, ease: "linear" })
+      })
     })
-  };
+  });
+
   return (
     <div css={[mainColumnStyles]} >
-      {initialClouds.map((cloud, i) =>
-        <SvgBabaCloud
-          css={cloudStyles}
-          variants={variants}
-          initial="initial"
-          custom={{ ...cloud, i }}
-          key={i}
-          animate="to"
+      {items(40).filter(interesting).map(i => <SvgBabaCloud
+        css={cloudStyles}
+        variants={variants}
+        initial="initial"
+        custom={i}
+        key={i}
+        animate={controls}
       />)}
       <SvgSun css={[tw`h-24 xl:h-32 relative z-20`]} fill={colors.yellow[400]} stroke={colors.gray[700]} />
       <SvgBannerPath css={[tw`h-12 xl:h-20 my-8 xl:my-10 relative z-40`]} fill={colors.blue[100]} stroke={colors.gray[700]} />
