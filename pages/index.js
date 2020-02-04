@@ -18,6 +18,8 @@ const mainColumnStyles = tw`
   justify-center
   h-full
   pb-64
+  z-50
+  max-w-xl
 `;
 
 const IndexPage = () => {
