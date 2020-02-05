@@ -2,7 +2,7 @@ import { css } from '@emotion/core'
 import { useTheme } from 'emotion-theming';
 import React, { useEffect, useState, useRef } from 'react';
 import tw from 'tailwind.macro';
-import { SvgSun } from '../components';
+import { SvgSun, SvgBackdrop } from '../components';
 import OptInForm from '../components/OptInForm';
 import SvgBabaCloud from '../components/svg/SvgBabaCloud';
 import SvgBannerPath from '../components/svg/SvgBannerPath';
@@ -34,55 +34,55 @@ const cloudStyles = tw`
 const ran = x => Math.random() * x;
 const ranIn = (x1, x2) => ran(x2 - x1) + x1;
 const items = n => [...Array(n).keys()]
-// const interesting = x => x % 2 != 0 && x % 7 != 0;
-const interesting = x => x;
-
-const initialClouds = [
-  { x: -180, y: 0 },
-  { x: 0, y: 0 },
-  { x: 180, y: 0 },
-  { x: 360, y: 0 },
-].flat();
 
 const IndexPage = () => {
   const { colors } = useTheme();
 
   const transition = {
-    duration: 10,
+    duration: 32,
     loop: Infinity,
     ease: "linear"
   }
 
-  const perRow = 12;
+  let cols = 12,
+      rows = 4;
 
   const variants = {
-    leftOffScreen: i => ({
-      x: -2000 + (i * 10),
-      y: i * 10,
+    leftOffScreen: ({ row, col, offsetX, offsetY }) => ({
+      x: -3000 + (col * offsetX),
+      y: row * offsetY,
       transition
     }),
-    rightOffScreen: i => ({
-      x: 2000 + (i * 10),
-      y: i * 10,
+    rightOffScreen: ({ row, col, offsetX, offsetY }) => ({
+      x: 3000 + (col * offsetX),
+      y: row * offsetY,
       transition
     }),
-    default: i => ({
-      x: i * 10,
-      y: i * 10,
+    default: ({ row, col, offsetX, offsetY }) => ({
+      x: col * offsetX,
+      y: row * offsetY,
       transition
     }),
   }
 
   return (
     <div css={mainColumnStyles}>
-      {items(10).map(i => {
-        const r = ranIn(1,5);
+      {items(cols*rows).filter(x => x % 7 != 0 && x % 2 != 0).map(i => {
+        // let offsetX = ranIn(8,12) * 30;
+        // let offsetY = ranIn(8,12) * 20;
+        let offsetX = ranIn(280,320);
+        let offsetY = ranIn(90,110);
         return [
           <SvgBabaCloud
             key={`${i}a`}
             css={cloudStyles}
             variants={variants}
-            custom={i*r}
+            custom={{
+              col: i % cols,
+              row: Math.floor(i/cols),
+              offsetX,
+              offsetY
+            }}
             initial="default"
             animate="rightOffScreen"
           />,
@@ -90,7 +90,12 @@ const IndexPage = () => {
             key={`${i}b`}
             css={cloudStyles}
             variants={variants}
-            custom={i*r}
+            custom={{
+              col: i % cols,
+              row: Math.floor(i/cols),
+              offsetX,
+              offsetY
+            }}
             initial="leftOffScreen"
             animate="default"
           />

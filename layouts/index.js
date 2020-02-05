@@ -10,7 +10,7 @@ const backdropStyles = [
     h-full
     overflow-hidden
     bg-blue-300
-    z-0
+    z-30
     flex
     justify-center
   `
