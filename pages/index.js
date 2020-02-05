@@ -1,14 +1,11 @@
-import { css } from '@emotion/core'
 import { useTheme } from 'emotion-theming';
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import tw from 'tailwind.macro';
-import { SvgSun, SvgBackdrop } from '../components';
+import { SvgSun } from '../components';
 import OptInForm from '../components/OptInForm';
 import SvgBabaCloud from '../components/svg/SvgBabaCloud';
 import SvgBannerPath from '../components/svg/SvgBannerPath';
 import { BackdropLayout } from '../layouts';
-import { useAnimation } from 'framer-motion';
-import { useInterval } from 'beautiful-react-hooks';
 
 const border = tw`border-2 border-red-500 border-solid`
 
@@ -38,66 +35,57 @@ const items = n => [...Array(n).keys()]
 const IndexPage = () => {
   const { colors } = useTheme();
 
-  const transition = {
-    duration: 32,
-    loop: Infinity,
-    ease: "linear"
-  }
-
   let cols = 12,
-      rows = 4;
-
-  const variants = {
-    leftOffScreen: ({ row, col, offsetX, offsetY }) => ({
-      x: -3000 + (col * offsetX),
-      y: row * offsetY,
-      transition
-    }),
-    rightOffScreen: ({ row, col, offsetX, offsetY }) => ({
-      x: 3000 + (col * offsetX),
-      y: row * offsetY,
-      transition
-    }),
-    default: ({ row, col, offsetX, offsetY }) => ({
-      x: col * offsetX,
-      y: row * offsetY,
-      transition
-    }),
-  }
+    rows = 4,
+    width = 3000,
+    height = 400;
 
   return (
     <div css={mainColumnStyles}>
-      {items(cols*rows).filter(x => x % 7 != 0 && x % 2 != 0).map(i => {
-        // let offsetX = ranIn(8,12) * 30;
-        // let offsetY = ranIn(8,12) * 20;
-        let offsetX = ranIn(280,320);
-        let offsetY = ranIn(90,110);
+      {items(cols * rows).map(i => {
+        let row = Math.floor(i / cols),
+          col = i % cols,
+          x = col == 0 ? 0 : (width / cols) * col,
+          y = row == 0 ? 0 : (height / rows) * row,
+          start = x - (width / 2),
+          end = x + (width / 2),
+          t = 2;
+
+          console.log(x, y);
+
         return [
           <SvgBabaCloud
             key={`${i}a`}
             css={cloudStyles}
-            variants={variants}
-            custom={{
-              col: i % cols,
-              row: Math.floor(i/cols),
-              offsetX,
-              offsetY
+            initial={{
+              x,
+              y,
             }}
-            initial="default"
-            animate="rightOffScreen"
+            animate={{
+              x: end,
+              y,
+              transition: {
+                duration: t,
+                ease: "linear"
+              }
+            }}
           />,
           <SvgBabaCloud
             key={`${i}b`}
             css={cloudStyles}
-            variants={variants}
-            custom={{
-              col: i % cols,
-              row: Math.floor(i/cols),
-              offsetX,
-              offsetY
+            initial={{
+              x: start,
+              y,
             }}
-            initial="leftOffScreen"
-            animate="default"
+            animate={{
+              x: end,
+              y,
+              transition: {
+                duration: t * 2,
+                ease: "linear",
+                loop: Infinity
+              }
+            }}
           />
         ];
       }).flat()}
