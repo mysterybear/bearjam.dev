@@ -4,7 +4,7 @@ import tw from 'tailwind.macro';
 
 const OptInForm = ({ className }) => {
 
-  const [state, handleSubmit] = useForm(`${process.env.STATICKIT_DEPLOY_KEY}`);
+  const [state, handleSubmit] = useForm('optInForm');
 
   if (state.succeeded) {
     return <div css={tw`mt-8`}>Thank you for signing up!</div>;
