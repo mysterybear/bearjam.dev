@@ -2,8 +2,11 @@ import { useForm } from '@statickit/react';
 import React from 'react';
 import tw from 'tailwind.macro';
 
-const OptInForm = ({ className }) => {
-
+const OptInForm = ({
+  className,
+  title = "Web Development",
+  subtitle = "Subscribe to our newsletter for updates.",
+}) => {
   const [state, handleSubmit] = useForm('optInForm');
 
   if (state.succeeded) {
@@ -13,10 +16,10 @@ const OptInForm = ({ className }) => {
   return (
     <form className={className} onSubmit={handleSubmit}>
       <p css={tw`text-center font-bold text-lg tracking-wider font-mono`}>
-        Web Development
+        {title}
       </p>
       <p css={tw`text-center mt-6 font-sans`}>
-        Subscribe to our newsletter for updates.
+        {subtitle}
       </p>
       <div css={tw`flex flex-col flex-wrap items-center`}>
         <label css={tw`hidden`} htmlFor="email">
@@ -40,7 +43,6 @@ const OptInForm = ({ className }) => {
       </div>
     </form>
   );
-
 };
 
 export default OptInForm;

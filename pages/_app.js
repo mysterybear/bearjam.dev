@@ -21,7 +21,8 @@ export default ({ Component, pageProps }) => {
       git: client,
     },
     sidebar: {
-      hidden: process.env.NODE_ENV === "production"
+      hidden: process.env.NODE_ENV === "production",
+      // position: 'displace'
     }
   })
 
