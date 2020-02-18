@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import tw from 'tailwind.macro';
 
 export const globalStyles = css`
-  ${emotionTailwindPreflight}
+  /* ${emotionTailwindPreflight}; */
   html,
   body {
     padding: 0;

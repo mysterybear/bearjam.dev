@@ -3,16 +3,16 @@ import { ThemeProvider } from 'emotion-theming';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { globalStyles } from '../styles';
-import { theme as initialTheme } from '../tailwind';
+import { theme as initialTheme } from '../tailwind.config';
 import { StaticKitProvider } from '@statickit/react';
-
+import '../base.css';
 
 export default ({ Component, pageProps }) => {
   const [theme, setTheme] = useState(initialTheme);
   const Layout = Component.Layout || (x => x);
 
   let title = "bearjam.dev";
-  if (pageProps.title) { title += ` | ${pageProps.title}`};
+  if (pageProps.title) { title += ` | ${pageProps.title}` };
 
   return (
     <>
