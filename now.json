@@ -3,5 +3,8 @@
     "env": {
       "STATICKIT_DEPLOY_KEY": "@statickit-deploy-key"
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/resume", "destination": "/cv" }
+  ]
 }
