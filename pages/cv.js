@@ -11,6 +11,14 @@ const cvStyles = [
       margin: 0 auto;
       border: 1px solid black;
     }
+
+    section {
+      ${tw`my-6`}
+    }
+
+    dd {
+      ${tw`mx-6`}
+    }
   `
 ]
 

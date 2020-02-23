@@ -15,6 +15,12 @@
     "@mdx-js/react": "^1.5.5",
     "@next/mdx": "^9.2.2",
     "@statickit/react": "^2.0.1",
+    "@vx/curve": "^0.0.194",
+    "@vx/drag": "^0.0.194",
+    "@vx/gradient": "^0.0.194",
+    "@vx/group": "^0.0.194",
+    "@vx/scale": "^0.0.194",
+    "@vx/shape": "^0.0.194",
     "beautiful-react-hooks": "^0.20.0",
     "emotion-tailwind-preflight": "^1.0.0",
     "emotion-theming": "^10.0.27",
@@ -24,6 +30,7 @@
     "postcss-typography": "^1.0.0",
     "react": "16.10.1",
     "react-dom": "16.10.1",
+    "react-select": "^3.0.8",
     "typography-theme-alton": "^0.16.19"
   },
   "devDependencies": {
