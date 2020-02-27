@@ -12,13 +12,18 @@ export default ({ Component, pageProps }) => {
   const Layout = Component.Layout || (x => x);
 
   let title = "bearjam.dev";
-  if (pageProps.title) { title += ` | ${pageProps.title}`};
+  if (pageProps.title) { title += ` | ${pageProps.title}` };
 
   return (
     <>
       <Head>
+        <meta charSet="utf-8" key="charset"/>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+          key="viewport"
+        />
         <title>{title}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyles} />
